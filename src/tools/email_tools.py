@@ -22,14 +22,22 @@ def send_email_to_me(sender_email, subject, body):
         print(f"[ERROR] {error_msg}")
         return {"status": f"Error: {error_msg}"}
 
+    # Crear mensaje
     msg = EmailMessage()
     msg["From"] = Config.SMTP_EMAIL
     msg["To"] = Config.SMTP_EMAIL
-    msg["Subject"] = f"[Mensaje desde asistente web] {subject}"
-    msg["Reply-To"] = sender_email  # Responder irá al email del remitente
-
-    # Incluir el remitente dentro del cuerpo del mensaje
-    full_body = f"Remitente: {sender_email}\n\n{body}"
+    msg["Subject"] = f"[Asistente Web] {subject}"
+    msg["Reply-To"] = sender_email
+    
+    # Incluir información del remitente en el cuerpo
+    full_body = f"📧 NUEVO MENSAJE DESDE EL ASISTENTE WEB\n\n"
+    full_body += f"👤 Remitente: {sender_email}\n"
+    full_body += f"📝 Asunto: {subject}\n"
+    full_body += f"📅 Enviado desde: Asistente Personal\n\n"
+    full_body += f"💬 Mensaje:\n{body}\n\n"
+    full_body += f"---\n"
+    full_body += f"Para responder, usa Reply-To: {sender_email}"
+    
     msg.set_content(full_body)
 
     try:
@@ -37,8 +45,20 @@ def send_email_to_me(sender_email, subject, body):
             server.starttls()
             server.login(Config.SMTP_EMAIL, Config.SMTP_PASSWORD)
             server.send_message(msg)
-        print(f"[INFO] Email enviado correctamente desde {sender_email}")
+            
+        print(f"[INFO] ✅ Email enviado correctamente desde {sender_email}")
         return {"status": "Correo enviado correctamente"}
+        
+    except smtplib.SMTPAuthenticationError as e:
+        error_msg = f"Error de autenticación SMTP: {str(e)}"
+        print(f"[ERROR] {error_msg}")
+        return {"status": f"Error de autenticación: {error_msg}"}
+        
+    except smtplib.SMTPRecipientsRefused as e:
+        error_msg = f"Destinatario rechazado: {str(e)}"
+        print(f"[ERROR] {error_msg}")
+        return {"status": f"Error de destinatario: {error_msg}"}
+        
     except Exception as e:
         error_msg = f"Error al enviar correo: {type(e).__name__} - {str(e)}"
         print(f"[ERROR] {error_msg}")

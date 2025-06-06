@@ -26,8 +26,8 @@ class Config:
     SUMMARY_FILE = "data/me/summary.txt"
     
     # Configuración del asistente
-    MAX_RESPONSE_LENGTH = 150
-    EMAIL_SUGGESTION_RESET_INTERVAL = 5
+    MAX_RESPONSE_LENGTH = 300
+    EMAIL_SUGGESTION_RESET_INTERVAL = 3
     
     @classmethod
     def validate_smtp_config(cls):
