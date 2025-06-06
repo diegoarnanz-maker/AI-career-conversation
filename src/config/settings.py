@@ -11,7 +11,7 @@ class Config:
     """Configuración principal del asistente"""
     
     # OpenAI
-    OPENAI_MODEL = "gpt-4o"
+    OPENAI_MODEL = "gpt-4o-mini"
     
     # SMTP Configuration
     SMTP_EMAIL = os.getenv("SMTP_EMAIL")
@@ -23,10 +23,9 @@ class Config:
     LEADS_FILE = "data/leads.txt"
     UNKNOWN_QUESTIONS_FILE = "data/unknown_questions.txt"
     LINKEDIN_PDF = "data/me/linkedin.pdf"
-    SUMMARY_FILE = "data/me/summary.txt"
     
     # Configuración del asistente
-    MAX_RESPONSE_LENGTH = 300
+    MAX_RESPONSE_LENGTH = 400
     EMAIL_SUGGESTION_RESET_INTERVAL = 3
     
     @classmethod

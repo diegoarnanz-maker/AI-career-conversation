@@ -1,0 +1,230 @@
+{
+  "perfil_profesional": {
+    "nombre": "Diego Arnanz",
+    "rol": "Desarrollador Full Stack",
+    "especializaciones": [
+      "Desarrollo Frontend con Angular",
+      "Desarrollo Backend con Spring Boot",
+      "Asistentes de IA con n8n y OpenAI",
+      "Aplicaciones Full Stack"
+    ],
+    "tecnologias_principales": [
+      "Angular", "Spring Boot", "TypeScript", "Java", "MySQL", "Tailwind CSS", 
+      "n8n", "OpenAI", "JWT", "Docker", "GraphQL", "Thymeleaf"
+    ],
+    "enfoque": "Desarrollo de aplicaciones web modernas, escalables y con experiencia de usuario optimizada. Especializado en la creación de asistentes inteligentes y automatizaciones con IA."
+  },
+  
+  "categorias_proyectos": {
+    "asistentes_ia": {
+      "descripcion": "Asistentes inteligentes desarrollados con n8n, OpenAI y LangChain para automatización de tareas empresariales",
+      "tecnologias_clave": ["n8n", "OpenAI GPT-4o-mini", "LangChain", "Google Sheets", "Airtable", "Pinecone"],
+      "casos_uso": [
+        "Gestión de clientes y agendado automático",
+        "Reservas de gimnasio con validación de horarios",
+        "Soporte al cliente para ecommerce",
+        "Automatización de correos y calendarios"
+      ]
+    },
+    
+    "frontend": {
+      "descripcion": "Aplicaciones frontend modernas con Angular, diseño responsive y experiencia de usuario optimizada",
+      "tecnologias_clave": ["Angular", "Tailwind CSS", "TypeScript", "SCSS"],
+      "tipos_aplicaciones": [
+        "E-commerce con carrito de compras",
+        "Portfolios personales con diseño retro",
+        "Catálogos de productos (ropa, series, Pokémon)",
+        "Gestores de tareas colaborativos"
+      ]
+    },
+    
+    "backend": {
+      "descripcion": "APIs REST y aplicaciones MVC robustas con Spring Boot, seguridad y testing",
+      "tecnologias_clave": ["Spring Boot", "JPA/Hibernate", "MySQL", "JWT", "Thymeleaf", "Docker"],
+      "subcategorias": {
+        "mvc": "Aplicaciones web completas con interfaz de usuario integrada",
+        "api": "APIs REST con documentación Swagger y testing completo"
+      },
+      "dominios": [
+        "Gestión de eventos y reservas",
+        "Sistemas bancarios virtuales",
+        "Gestión de comerciales y clientes",
+        "Plataformas de fisioterapia",
+        "Turismo y excursiones"
+      ]
+    },
+    
+    "fullstack": {
+      "descripcion": "Aplicaciones completas que integran frontend Angular con backend Spring Boot",
+      "arquitectura": "Frontend Angular + Backend Spring Boot + Base de datos MySQL",
+      "seguridad": ["JWT", "Basic Auth", "Control de roles", "Spring Security"],
+      "proyectos_destacados": [
+        "Plataforma de cortometrajes con sistema de reseñas",
+        "Portal de empleo con gestión de vacantes",
+        "Catálogo de series con favoritos",
+        "Sistema de gestión de usuarios"
+      ]
+    }
+  },
+  
+  "proyectos_destacados": {
+    "indimetra": {
+      "tipo": "Fullstack",
+      "descripcion": "Plataforma de cortometrajes con Angular 19, Spring Boot y autenticación JWT",
+      "funcionalidades": [
+        "Exploración de cortometrajes con filtros avanzados",
+        "Sistema de reseñas y favoritos",
+        "Panel administrativo completo",
+        "Autenticación segura con roles"
+      ],
+      "tecnologias": ["Angular 19", "Spring Boot", "JWT", "Tailwind CSS", "MySQL"]
+    },
+    
+    "talent_hub": {
+      "tipo": "Fullstack",
+      "descripcion": "Plataforma de gestión de vacantes que conecta empresas con candidatos",
+      "funcionalidades": [
+        "Publicación y gestión de ofertas de empleo",
+        "Sistema de postulaciones y seguimiento",
+        "Control de roles (Admin, Empresa, Usuario)",
+        "Dashboard para cada tipo de usuario"
+      ],
+      "tecnologias": ["Angular 19", "Spring Boot", "Basic Auth", "Tailwind CSS", "MySQL"]
+    },
+    
+    "ai_career_conversation": {
+      "tipo": "Asistente IA",
+      "descripcion": "Asistente personal para responder preguntas sobre mi carrera profesional",
+      "funcionalidades": [
+        "Memoria contextual para conversaciones coherentes",
+        "Respuesta a preguntas sobre mi carrera profesional",
+        "Respuesta a preguntas sobre mi formación académica",
+        "Respuesta a preguntas sobre mi experiencia profesional",
+        "Respuesta a preguntas sobre mi formación académica"
+      ],
+      "tecnologias": ["n8n", "OpenAI GPT-4o-mini", "LangChain", "Google APIs"]
+    },
+    
+    "gimnasio_agent": {
+      "tipo": "Asistente IA",
+      "descripcion": "Asistente para gestión de reservas de gimnasio",
+      "funcionalidades": [
+        "Consulta de actividades disponibles",
+        "Verificación de perfil por email",
+        "Reservas automáticas con validación de horarios",
+        "Integración con Airtable para gestión de datos"
+      ],
+      "tecnologias": ["n8n", "OpenAI GPT-4o-mini", "Airtable", "LangChain"]
+    }
+  },
+  
+  "competencias_tecnicas": {
+    "frontend": {
+      "frameworks": ["Angular (hasta v19)", "Standalone Components"],
+      "estilos": ["Tailwind CSS", "SCSS", "CSS3"],
+      "herramientas": ["TypeScript", "RxJS", "Angular CLI"],
+      "patrones": ["Responsive Design", "Component Architecture", "State Management"]
+    },
+    
+    "backend": {
+      "frameworks": ["Spring Boot", "Spring Security", "Spring Data JPA"],
+      "bases_datos": ["MySQL", "JPA/Hibernate"],
+      "seguridad": ["JWT", "Basic Auth", "Role-based Access Control"],
+      "testing": ["JUnit", "Mockito", "TDD"],
+      "documentacion": ["Swagger/OpenAPI"]
+    },
+    
+    "inteligencia_artificial": {
+      "plataformas": ["n8n", "LangChain"],
+      "modelos": ["OpenAI GPT-4o-mini"],
+      "vector_stores": ["Pinecone"],
+      "integraciones": ["Google APIs", "Airtable", "Gmail", "Google Calendar", "Google Sheets"]
+    },
+    
+    "devops_herramientas": {
+      "contenedores": ["Docker"],
+      "control_version": ["Git", "GitHub"],
+      "apis": ["REST", "GraphQL"],
+      "metodologias": ["TDD", "Arquitectura por capas", "MVC"]
+    }
+  },
+  
+  "experiencia_sectores": {
+    "ecommerce": [
+      "Tiendas online con carrito de compras",
+      "Catálogos de productos con filtros",
+      "Asistentes de ventas automatizados"
+    ],
+    "entretenimiento": [
+      "Plataformas de streaming de cortometrajes",
+      "Catálogos de series y películas",
+      "Sistemas de reseñas y favoritos"
+    ],
+    "recursos_humanos": [
+      "Portales de empleo",
+      "Gestión de vacantes y candidatos",
+      "Sistemas de postulaciones"
+    ],
+    "servicios_profesionales": [
+      "Gestión de citas médicas (fisioterapia)",
+      "Reservas de actividades (gimnasio)",
+      "Automatización de tareas empresariales"
+    ],
+    "finanzas": [
+      "Cajeros virtuales",
+      "Sistemas de transferencias",
+      "Gestión de transacciones"
+    ],
+    "turismo": [
+      "Gestión de excursiones",
+      "Reservas con control de capacidad",
+      "Administración de guías turísticos"
+    ]
+  },
+  
+  "metodologias_desarrollo": {
+    "arquitectura": [
+      "Arquitectura por capas (Spring Boot)",
+      "Componentes standalone (Angular)",
+      "Separación de responsabilidades",
+      "API-First Design"
+    ],
+    "testing": [
+      "Test-Driven Development (TDD)",
+      "Pruebas unitarias con JUnit y Mockito",
+      "Cobertura de código",
+      "Testing de integración"
+    ],
+    "seguridad": [
+      "Autenticación JWT y Basic Auth",
+      "Control de acceso basado en roles",
+      "Validación de entrada de datos",
+      "Manejo seguro de sesiones"
+    ]
+  },
+  
+  "fortalezas_clave": [
+    "Desarrollo full stack con tecnologías modernas",
+    "Creación de asistentes de IA para automatización empresarial",
+    "Diseño de interfaces responsive y experiencia de usuario optimizada",
+    "Implementación de sistemas de seguridad robustos",
+    "Integración con APIs externas y servicios cloud",
+    "Aplicación de metodologías de testing y TDD",
+    "Desarrollo de aplicaciones escalables y mantenibles"
+  ],
+  
+  "casos_uso_asistentes_ia": {
+    "automatizacion_empresarial": {
+      "descripcion": "Asistentes que automatizan tareas repetitivas como gestión de clientes, agendado y comunicaciones",
+      "beneficios": ["Ahorro de tiempo", "Reducción de errores", "Disponibilidad 24/7", "Integración con herramientas existentes"]
+    },
+    "atencion_cliente": {
+      "descripcion": "Chatbots inteligentes para ecommerce y servicios que responden consultas y procesan solicitudes",
+      "beneficios": ["Respuesta inmediata", "Escalabilidad", "Consistencia en respuestas", "Reducción de carga de trabajo"]
+    },
+    "gestion_reservas": {
+      "descripcion": "Sistemas automatizados para reservas de servicios con validación de disponibilidad",
+      "beneficios": ["Gestión automática de horarios", "Prevención de conflictos", "Confirmaciones automáticas"]
+    }
+  }
+}

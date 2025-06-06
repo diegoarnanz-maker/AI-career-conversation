@@ -1,0 +1,41 @@
+{
+    "faq": [
+      {
+        "pregunta": "¿Quién es Diego Arnanz?",
+        "respuesta": "Desarrollador Fullstack especializado en Angular, Spring Boot y asistentes inteligentes con IA. Tiene experiencia en proyectos reales y en entornos profesionales como Euro Kaizen."
+      },
+      {
+        "pregunta": "¿En qué tecnologías trabaja?",
+        "respuesta": "Principalmente Angular, Spring Boot, .NET Core, JWT, MySQL, Tailwind CSS y herramientas de IA como OpenAI y n8n."
+      },
+      {
+        "pregunta": "¿Qué tipo de proyectos ha realizado?",
+        "respuesta": "Desde plataformas de cortometrajes, portales de empleo, hasta asistentes inteligentes para automatización de tareas o reservas en gimnasios."
+      },
+      {
+        "pregunta": "¿Tiene experiencia profesional real?",
+        "respuesta": "Sí, ha trabajado en Euro Kaizen en el backend del proyecto MovilTruck resolviendo bugs y mejorando lógica del sistema, entre otros proyectos personales completos."
+      },
+      {
+        "pregunta": "¿Qué estudios tiene?",
+        "respuesta": "Ha completado el Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (DAW) con media superior a 9. También tiene un Grado en Educación Primaria, un Máster en Educación Inclusiva e Intercultural y una mención en Enseñanza del Inglés."
+      },
+      {
+        "pregunta": "¿En qué tipo de trabajo está interesado?",
+        "respuesta": "Busco oportunidades en remoto, híbrido o presencial (en Segovia o Madrid), relacionadas con desarrollo fullstack, automatización o IA aplicada."
+      },
+      {
+        "pregunta": "¿Puedo contactarle directamente?",
+        "respuesta": "Sí, puedes escribirme a diegodev96@gmail.com o usar el asistente para enviar un correo directamente desde aquí."
+      },
+      {
+        "pregunta": "¿Tiene portfolio disponible?",
+        "respuesta": "Sí, su portfolio está en: https://diegoarnanz-maker-portfolio.netlify.app. También puedes pedir que te lo resuma por aquí."
+      },
+      {
+        "pregunta": "¿Qué tipo de asistentes de IA ha creado?",
+        "respuesta": "Ha desarrollado asistentes con n8n y OpenAI para gestión de clientes, reservas, soporte a ecommerce y automatización de emails y calendarios."
+      }
+    ]
+  }
+  

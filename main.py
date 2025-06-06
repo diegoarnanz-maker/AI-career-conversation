@@ -1,12 +1,10 @@
 """
 Archivo principal del asistente personal
-Usa la nueva arquitectura modular
 """
 import gradio as gr
 from src.core import PersonalAssistant
 
 def main():
-    """Función principal para lanzar la aplicación"""
     print("🚀 Iniciando Mi Asistente Personal...")
     
     # Crear instancia del asistente

@@ -150,37 +150,43 @@ Tienes una respuesta que es demasiado larga y necesitas adaptarla para que quepa
 Respuesta original:
 {original_response}
 
-INSTRUCCIONES:
-1. Mantén la información MÁS IMPORTANTE
-2. Usa abreviaciones profesionales cuando sea apropiado (ej: "Desarrollo de Aplicaciones Web" → "DAW")
-3. Prioriza fechas y títulos principales
-4. Mantén el tono profesional
-5. NO cortes palabras a la mitad
-6. La respuesta debe ser EXACTAMENTE {max_length} caracteres o menos
+INSTRUCCIONES ESPECÍFICAS:
+1. MANTÉN: El argumento principal y la lógica persuasiva de la respuesta
+2. PRIORIZA: Beneficios concretos, valor añadido, diferenciadores clave
+3. CONSERVA: El tono profesional y la estructura argumentativa
+4. ABREVIA: Términos técnicos cuando sea necesario ("Desarrollo de Aplicaciones Web" → "DAW")
+5. ELIMINA: Redundancias y palabras de relleno, pero NO el hilo argumentativo
+6. CONECTA: Las ideas con conectores apropiados para mantener fluidez
+7. TERMINA: Con una conclusión clara y llamada a la acción si la había
+8. La respuesta debe ser EXACTAMENTE {max_length} caracteres o menos
 
-Genera la versión adaptada:
+Genera una versión que mantenga el poder persuasivo y la coherencia del mensaje original:
 """
+            
+            print(f"[DEBUG] Enviando a IA para resumen: {len(original_response)} → {max_length} caracteres")
             
             response = self.openai.chat.completions.create(
                 model=Config.OPENAI_MODEL,
                 messages=[{"role": "user", "content": adaptation_prompt}],
-                max_tokens=150,
-                temperature=0.2
+                max_tokens=200,  # Aumentado para dar más espacio
+                temperature=0.1  # Más determinístico
             )
             
             adapted = response.choices[0].message.content.strip()
+            print(f"[DEBUG] IA devolvió: {len(adapted)} caracteres")
             
             # Verificar que realmente quepa
             if len(adapted) <= max_length:
-                print(f"[INFO] Respuesta adaptada por IA: {len(adapted)}/{max_length} caracteres")
+                print(f"[INFO] ✅ Respuesta adaptada por IA: {len(adapted)}/{max_length} caracteres")
                 return adapted
             else:
                 # Si aún es muy larga, cortar de forma inteligente
-                print(f"[WARNING] Respuesta de IA aún muy larga, aplicando corte inteligente")
+                print(f"[WARNING] ⚠️ Respuesta de IA aún muy larga ({len(adapted)}), aplicando corte inteligente")
                 return self._smart_truncate(adapted, max_length)
                 
         except Exception as e:
-            print(f"[ERROR] Error adaptando respuesta: {e}")
+            print(f"[ERROR] ❌ Error adaptando respuesta con IA: {e}")
+            print(f"[DEBUG] Aplicando fallback: corte inteligente")
             # Fallback a corte inteligente
             return self._smart_truncate(original_response, max_length)
     
@@ -271,16 +277,22 @@ Genera la versión adaptada:
             str: Prompt del sistema
         """
         return (
-            f"Eres {self.name}, y estás respondiendo en su página web. "
-            f"Tu función es contestar preguntas sobre su carrera, formación, habilidades y experiencia. "
-            f"Debes sonar profesional y auténtico, como si hablaras con un posible cliente o empleador. "
+            f"Eres {self.name}, desarrollador fullstack especializado en Angular, Spring Boot y asistentes de IA. "
+            f"Estás respondiendo en tu página web personal como asistente profesional. "
+            f"Tu función es contestar preguntas sobre tu carrera, formación, habilidades, proyectos y experiencia. "
+            f"Debes sonar profesional, auténtico y técnicamente competente, como si hablaras con un posible cliente o empleador. "
+            f"IMPORTANTE: Cuando respondas preguntas sobre contratación o valor profesional, estructura tu respuesta de forma persuasiva: "
+            f"1) Destaca beneficios concretos y diferenciadores, 2) Menciona experiencia relevante con ejemplos, "
+            f"3) Conecta habilidades con valor para el empleador, 4) Termina con una propuesta de acción. "
             f"Si no sabes responder, usa la herramienta 'record_unknown_question'. "
             f"Si el usuario parece interesado, pide su email y usa 'record_user_details'. "
             f"Cuando el usuario quiera enviarte un email, usa 'send_email_to_me' con un asunto apropiado basado en el contexto. "
             f"Responde siempre con menos de {Config.MAX_RESPONSE_LENGTH} caracteres.\n\n"
-            f"## Resumen:\n{self.data_loader.get_summary_content()}\n\n"
+            f"## CV Completo:\n{self.data_loader.get_cv_content()}\n\n"
+            f"## Contexto Profesional:\n{self.data_loader.get_contexto_content()}\n\n"
+            f"## Preguntas Frecuentes:\n{self.data_loader.get_faq_content()}\n\n"
             f"## Perfil de LinkedIn:\n{self.data_loader.get_linkedin_content()}\n\n"
-            f"Con este contexto, chatea representando a {self.name} de forma fiel."
+            f"Con este contexto completo, chatea representando a {self.name} de forma fiel y profesional."
         )
 
     def chat(self, message, history):
@@ -479,24 +491,32 @@ Genera la versión adaptada:
                 done = True
 
         full_response = response.choices[0].message.content
+        print(f"[DEBUG] Respuesta original: {len(full_response)} caracteres")
         
         # Verificar si necesitamos adaptar la respuesta por longitud
         email_suggestion = "\n\n💬 También puedes escribirme por email si prefieres."
-        available_space = Config.MAX_RESPONSE_LENGTH
+        will_add_email_suggestion = not self.pending_email and not self.last_email_suggestion
         
-        # Reservar espacio para la sugerencia de email si es necesaria
-        if not self.pending_email and not self.last_email_suggestion:
-            available_space -= len(email_suggestion)
+        # Calcular espacio disponible
+        if will_add_email_suggestion:
+            available_space = Config.MAX_RESPONSE_LENGTH - len(email_suggestion)
+            print(f"[DEBUG] Espacio disponible (con email): {available_space}")
+        else:
+            available_space = Config.MAX_RESPONSE_LENGTH
+            print(f"[DEBUG] Espacio disponible (sin email): {available_space}")
         
         # Si la respuesta es muy larga, usar IA para resumirla inteligentemente
         if len(full_response) > available_space:
+            print(f"[DEBUG] Respuesta muy larga, aplicando resumen IA")
             adapted_response = self._adapt_long_response(full_response, available_space)
         else:
+            print(f"[DEBUG] Respuesta cabe, no necesita resumen")
             adapted_response = full_response
         
         # Agregar sugerencia de email si es necesario
-        if not self.pending_email and not self.last_email_suggestion:
+        if will_add_email_suggestion:
             adapted_response += email_suggestion
             self.last_email_suggestion = True
         
+        print(f"[DEBUG] Respuesta final: {len(adapted_response)} caracteres")
         return adapted_response 

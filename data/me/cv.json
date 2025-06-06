@@ -1,0 +1,104 @@
+{
+    "nombre": "Diego Arnanz Lozano",
+    "contacto": {
+      "ubicacion": "Segovia, España",
+      "linkedin": "www.linkedin.com/in/diegodev96",
+      "telefono": "+34 615 25 25 88",
+      "email": "diegodev96@gmail.com",
+      "portfolio": "https://diegoarnanz-maker-portfolio.netlify.app",
+      "github": "https://github.com/diegoarnanz-maker"
+    },
+    "resumen": "Desarrollador Web Fullstack con CFGS en Desarrollo de Aplicaciones Web finalizado (media >9) y experiencia en la creación de aplicaciones seguras, escalables y orientadas al usuario. Trabajo con Spring Boot, .NET y Angular, aplicando arquitectura limpia y autenticación JWT. A nivel personal, desarrollé varias plataformas web completas, y en entornos profesionales participé en la resolución de bugs y la mejora de lógica backend. Actualmente me especializo en IA aplicada, explorando LLMs, workflows y el enfoque MCP.",
+    "educacion": [
+      {
+        "centro": "UNIVERSIDAD INTERNACIONAL de la RIOJA",
+        "titulo": "Ciclo Formativo de Grado Superior – Desarrollo de Aplicaciones Web (DAW)",
+        "ubicacion": "Madrid, España",
+        "fecha": "Octubre 2023 - Mayo 2025 (Finalizado)",
+        "notas": "Media > 9"
+      },
+      {
+        "centro": "UNIVERSIDAD INTERNACIONAL de la RIOJA",
+        "titulo": "Mención Enseñanza de la Lengua Inglesa del Grado en Maestro en Educación Primaria",
+        "ubicacion": "Madrid, España",
+        "fecha": "Febrero 2023 - Julio 2023"
+      },
+      {
+        "centro": "UNIVERSIDAD INTERNACIONAL de la RIOJA",
+        "titulo": "Máster Universitario Educación Inclusiva e Intercultural",
+        "ubicacion": "Madrid, España",
+        "fecha": "Septiembre 2020 - Junio 2021"
+      },
+      {
+        "centro": "UNIVERSIDAD AUTÓNOMA de MADRID",
+        "titulo": "Grado Educación Primaria",
+        "ubicacion": "Madrid, España",
+        "fecha": "Septiembre 2015 - Junio 2021"
+      }
+    ],
+    "experiencia_profesional": [
+      {
+        "empresa": "EURO KAIZEN SL",
+        "rol": "Backend Developer (.NET Core) - Proyecto MovilTruck",
+        "ubicacion": "Remoto",
+        "fecha": "Marzo 2025 - Junio 2025",
+        "logros": [
+          "Solucioné bugs en distintas áreas de la aplicación, desde el registro de usuarios hasta lógica del núcleo del sistema",
+          "Validé y refactoricé endpoints existentes",
+          "Colaboré con Git y Azure DevOps en entorno profesional"
+        ],
+        "stack": [".NET Core", "SQL Server", "Postman", "Azure DevOps"]
+      },
+      {
+        "empresa": "INDIMETRA",
+        "rol": "Desarrollador Backend - Proyecto Final de Grado",
+        "ubicacion": "Remoto",
+        "fecha": "Marzo 2025 - Junio 2025",
+        "logros": [
+          "Desarrollé la API completa de una plataforma para cortometrajes independientes",
+          "Implementé gestión por roles, favoritos, reseñas, filtros y soft delete",
+          "Preparé el backend para futuras integraciones con IA"
+        ],
+        "stack": ["Spring Boot", "MySQL", "Angular 18", "TailwindCSS", "JWT"]
+      },
+      {
+        "empresa": "MERCADONA",
+        "rol": "Auxiliar de supermercado",
+        "ubicacion": "Segovia, España",
+        "fecha": "Julio 2023 - Diciembre 2023"
+      },
+      {
+        "empresa": "SERUNION S.A",
+        "rol": "Monitor comedor infantil y primaria",
+        "ubicacion": "Segovia, España",
+        "fecha": "Octubre 2022 - Junio 2023"
+      },
+      {
+        "empresa": "DOS EVENTOS",
+        "rol": "Montador de estructuras y escenografía",
+        "ubicacion": "Segovia, España",
+        "fecha": "Junio 2019 - Septiembre 2019"
+      },
+      {
+        "empresa": "MC DONALDS",
+        "rol": "Asistente de sala y marketing en restauración",
+        "ubicacion": "Madrid, España",
+        "fecha": "Octubre 2014 - Octubre 2017"
+      }
+    ],
+    "skills_tecnicas": {
+      "backend": ["Spring Boot", ".NET Core", "JWT", "REST APIs"],
+      "frontend": ["Angular 18", "TailwindCSS", "CSS", "HTML"],
+      "base_datos": ["MySQL", "SQL Server"],
+      "herramientas": ["Git", "Azure DevOps", "Postman", "Swagger"],
+      "otros": ["n8n", "OpenAI", "Integración con IA"]
+    },
+    "idiomas": {
+      "ingles": "Fluido (B2 - Escuela Oficial de Idiomas, C - APTIS)"
+    },
+    "preferencias": {
+      "modalidades_trabajo": ["Remoto", "Híbrido", "Presencial (Segovia - Madrid)"],
+      "intereses": ["Automatización", "Desarrollo de asistentes con IA"]
+    }
+  }
+  
