@@ -1,137 +1,42 @@
-from dotenv import load_dotenv
-from openai import OpenAI
+"""
+Clase principal del asistente personal
+"""
 import json
-import os
-from pypdf import PdfReader
-import gradio as gr
-import smtplib
-from email.message import EmailMessage
 import re
+from openai import OpenAI
+from src.config import Config
+from src.core.data_loader import DataLoader
+from src.tools import send_email_to_me, record_user_details, record_unknown_question, get_all_tools
 
-# Carga las variables de entorno desde el archivo .env
-load_dotenv(override=True)
-
-# Función para registrar un lead
-def record_user_details(email, name="Name not provided", notes="not provided"):
-    with open("leads.txt", "a", encoding="utf-8") as f:
-        f.write(f"{email} | {name} | {notes}\n")
-    print(f"[INFO] Lead registrado: {email} | {name} | {notes}")
-    return {"recorded": "ok"}
-
-# Función para registrar preguntas sin respuesta
-def record_unknown_question(question):
-    with open("unknown_questions.txt", "a", encoding="utf-8") as f:
-        f.write(f"{question}\n")
-    print(f"[INFO] Pregunta sin respuesta registrada: {question}")
-    return {"recorded": "ok"}
-
-# Función para enviar correos reales a Diego
-def send_email_to_me(sender_email, subject, body):
-    smtp_email = os.getenv("SMTP_EMAIL")
-    smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = os.getenv("SMTP_PORT")
-    smtp_password = os.getenv("SMTP_PASSWORD")
-
-    if not all([smtp_email, smtp_host, smtp_port, smtp_password]):
-        error_msg = "Configuración SMTP incompleta. Faltan variables de entorno."
-        print(f"[ERROR] {error_msg}")
-        return {"status": f"Error: {error_msg}"}
-
-    msg = EmailMessage()
-    msg["From"] = smtp_email
-    msg["To"] = smtp_email
-    msg["Subject"] = f"[Mensaje desde asistente web] {subject}"
-    msg["Reply-To"] = sender_email  # ➕ Responder irá al email del remitente
-
-    # ➕ Incluir el remitente dentro del cuerpo del mensaje
-    full_body = f"Remitente: {sender_email}\n\n{body}"
-    msg.set_content(full_body)
-
-    try:
-        with smtplib.SMTP(smtp_host, int(smtp_port)) as server:
-            server.starttls()
-            server.login(smtp_email, smtp_password)
-            server.send_message(msg)
-        print(f"[INFO] Email enviado correctamente desde {sender_email}")
-        return {"status": "Correo enviado correctamente"}
-    except Exception as e:
-        error_msg = f"Error al enviar correo: {type(e).__name__} - {str(e)}"
-        print(f"[ERROR] {error_msg}")
-        return {"status": f"Error: {error_msg}"}
-
-# Definiciones JSON para las tools que GPT puede usar
-record_user_details_json = {
-    "name": "record_user_details",
-    "description": "Registra el interés de un usuario que proporciona su email",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "email": {"type": "string", "description": "Correo del usuario"},
-            "name": {"type": "string", "description": "Nombre del usuario"},
-            "notes": {"type": "string", "description": "Notas contextuales"}
-        },
-        "required": ["email"],
-        "additionalProperties": False
-    }
-}
-
-record_unknown_question_json = {
-    "name": "record_unknown_question",
-    "description": "Registra preguntas que el asistente no supo responder",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "question": {"type": "string", "description": "La pregunta sin respuesta"},
-        },
-        "required": ["question"],
-        "additionalProperties": False
-    }
-}
-
-send_email_to_me_json = {
-    "name": "send_email_to_me",
-    "description": "Permite al usuario enviar un correo a Diego. El asunto se infiere automáticamente del contexto.",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "sender_email": {"type": "string", "description": "Correo del remitente"},
-            "subject": {"type": "string", "description": "Asunto inferido del contexto"},
-            "body": {"type": "string", "description": "Contenido del mensaje"}
-        },
-        "required": ["sender_email", "body"],
-        "additionalProperties": False
-    }
-}
-
-tools = [
-    {"type": "function", "function": record_user_details_json},
-    {"type": "function", "function": record_unknown_question_json},
-    {"type": "function", "function": send_email_to_me_json}
-]
-
-# Clase principal del asistente
-class Me:
-
+class PersonalAssistant:
+    """Asistente personal conversacional con capacidades de email y registro de leads"""
+    
     def __init__(self):
         self.openai = OpenAI()
         self.name = "Diego Arnanz Lozano"
         self.pending_email = None
-        self.last_email_suggestion = False  # ➕ Rastrear si ya sugerimos email
-        self.interaction_count = 0  # ➕ Contador de interacciones
-
-        reader = PdfReader("me/linkedin.pdf")
-        self.linkedin = ""
-        for page in reader.pages:
-            text = page.extract_text()
-            if text:
-                self.linkedin += text
-
-        with open("me/summary.txt", "r", encoding="utf-8") as f:
-            self.summary = f.read()
+        self.last_email_suggestion = False
+        self.interaction_count = 0
+        
+        # Cargar datos del perfil
+        self.data_loader = DataLoader()
+        
+        # Obtener herramientas disponibles
+        self.tools = get_all_tools()
+        
+        print(f"[INFO] Asistente {self.name} inicializado correctamente")
 
     def infer_subject_from_context(self, message, history):
-        """Infiere el asunto del email basado en el contexto de la conversación"""
-        # Buscar palabras clave para inferir el asunto
+        """
+        Infiere el asunto del email basado en el contexto de la conversación
+        
+        Args:
+            message (str): Mensaje actual
+            history (list): Historial de conversación
+            
+        Returns:
+            str: Asunto inferido
+        """
         keywords_map = {
             "trabajo": "Consulta sobre oportunidades laborales",
             "proyecto": "Propuesta de proyecto",
@@ -161,6 +66,15 @@ class Me:
         return "Nuevo mensaje desde el asistente web"
 
     def handle_tool_call(self, tool_calls):
+        """
+        Maneja las llamadas a herramientas
+        
+        Args:
+            tool_calls: Lista de llamadas a herramientas de OpenAI
+            
+        Returns:
+            list: Resultados de las herramientas
+        """
         results = []
         for tool_call in tool_calls:
             tool_name = tool_call.function.name
@@ -168,7 +82,7 @@ class Me:
             print(f"[TOOL] Ejecutando herramienta: {tool_name}")
 
             if tool_name == "send_email_to_me":
-                # ➕ Si no hay asunto, inferirlo del contexto
+                # Si no hay asunto, inferirlo del contexto
                 if "subject" not in arguments or not arguments["subject"]:
                     arguments["subject"] = self.infer_subject_from_context(arguments.get("body", ""), [])
                 
@@ -186,12 +100,19 @@ class Me:
                 })
                 results.append({
                     "role": "assistant",
-                    "content": confirmation_message[:150]
+                    "content": confirmation_message[:Config.MAX_RESPONSE_LENGTH]
                 })
                 return results
 
-            tool = globals().get(tool_name)
-            result = tool(**arguments) if tool else {}
+            # Mapear nombres de herramientas a funciones
+            tool_functions = {
+                "record_user_details": record_user_details,
+                "record_unknown_question": record_unknown_question,
+                "send_email_to_me": send_email_to_me
+            }
+            
+            tool_function = tool_functions.get(tool_name)
+            result = tool_function(**arguments) if tool_function else {}
             results.append({
                 "role": "tool",
                 "content": json.dumps(result),
@@ -200,6 +121,12 @@ class Me:
         return results
 
     def system_prompt(self):
+        """
+        Genera el prompt del sistema para el asistente
+        
+        Returns:
+            str: Prompt del sistema
+        """
         return (
             f"Eres {self.name}, y estás respondiendo en su página web. "
             f"Tu función es contestar preguntas sobre su carrera, formación, habilidades y experiencia. "
@@ -207,16 +134,26 @@ class Me:
             f"Si no sabes responder, usa la herramienta 'record_unknown_question'. "
             f"Si el usuario parece interesado, pide su email y usa 'record_user_details'. "
             f"Cuando el usuario quiera enviarte un email, usa 'send_email_to_me' con un asunto apropiado basado en el contexto. "
-            f"Responde siempre con menos de 150 caracteres.\n\n"
-            f"## Resumen:\n{self.summary}\n\n"
-            f"## Perfil de LinkedIn:\n{self.linkedin}\n\n"
+            f"Responde siempre con menos de {Config.MAX_RESPONSE_LENGTH} caracteres.\n\n"
+            f"## Resumen:\n{self.data_loader.get_summary_content()}\n\n"
+            f"## Perfil de LinkedIn:\n{self.data_loader.get_linkedin_content()}\n\n"
             f"Con este contexto, chatea representando a {self.name} de forma fiel."
         )
 
     def chat(self, message, history):
-        # ➕ Incrementar contador de interacciones y resetear sugerencia cada 5 interacciones
+        """
+        Procesa un mensaje del usuario y genera una respuesta
+        
+        Args:
+            message (str): Mensaje del usuario
+            history (list): Historial de conversación
+            
+        Returns:
+            str: Respuesta del asistente
+        """
+        # Incrementar contador de interacciones y resetear sugerencia cada N interacciones
         self.interaction_count += 1
-        if self.interaction_count % 5 == 0:
+        if self.interaction_count % Config.EMAIL_SUGGESTION_RESET_INTERVAL == 0:
             self.last_email_suggestion = False
         
         # Confirmación de envío pendiente
@@ -229,7 +166,7 @@ class Me:
             else:
                 return "✅ Correo enviado correctamente."
 
-        # ➕ Detectar patrón simplificado: "Email: ... Mensaje: ..."
+        # Detectar patrón simplificado: "Email: ... Mensaje: ..."
         email_pattern = r"(?:email|correo):\s*(\S+@\S+).*?(?:mensaje|message):\s*(.+)"
         match = re.search(email_pattern, message, re.IGNORECASE | re.DOTALL)
         if match:
@@ -247,9 +184,9 @@ class Me:
                 f"De: {sender_email}\n"
                 f"Asunto: {subject}\n"
                 f"¿Enviar? (responde 'sí')"
-            )[:150]
+            )[:Config.MAX_RESPONSE_LENGTH]
 
-        # ➕ Detectar intención de contacto y pedir solo email y mensaje
+        # Detectar intención de contacto y pedir solo email y mensaje
         contact_triggers = [
             "quiero enviarte un mail", "escribirte", "mandarte un correo", 
             "tengo una propuesta", "puedo escribirte", "contactarte",
@@ -262,16 +199,16 @@ class Me:
                 "📧 Formato:\n"
                 "Email: tu@email.com\n"
                 "Mensaje: Tu mensaje aquí"
-            )[:150]
+            )[:Config.MAX_RESPONSE_LENGTH]
 
         # Construcción del mensaje normal a la API
         messages = [{"role": "system", "content": self.system_prompt()}] + history + [{"role": "user", "content": message}]
         done = False
         while not done:
             response = self.openai.chat.completions.create(
-                model="gpt-4o",
+                model=Config.OPENAI_MODEL,
                 messages=messages,
-                tools=tools
+                tools=self.tools
             )
             if response.choices[0].finish_reason == "tool_calls":
                 message = response.choices[0].message
@@ -283,16 +220,11 @@ class Me:
                 done = True
 
         full_response = response.choices[0].message.content
-        trimmed_response = full_response[:150].strip()
+        trimmed_response = full_response[:Config.MAX_RESPONSE_LENGTH].strip()
 
-        # ➕ Solo agregar sugerencia de email si no hay email pendiente y no se sugirió recientemente
+        # Solo agregar sugerencia de email si no hay email pendiente y no se sugirió recientemente
         if not self.pending_email and not self.last_email_suggestion:
             trimmed_response += "\n\n💬 También puedes escribirme por email si prefieres."
             self.last_email_suggestion = True
         
-        return trimmed_response
-
-# Lanzar la app
-if __name__ == "__main__":
-    me = Me()
-    gr.ChatInterface(me.chat, type="messages").launch()
+        return trimmed_response 

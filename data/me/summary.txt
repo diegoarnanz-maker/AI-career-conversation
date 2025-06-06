@@ -1,0 +1,75 @@
+Diego Arnanz Lozano
+Segovia, España · www.linkedin.com/in/diegodev96 · +34 615 25 25 88 · diegodev96@gmail.com
+
+Desarrollador Web Fullstack con experiencia en la creación de aplicaciones seguras, escalables y orientadas al usuario. Trabajo con Spring Boot, .NET y Angular, aplicando arquitectura limpia y autenticación JWT. A nivel personal, desarrollé varias plataformas web completas, y en entornos profesionales participé en la resolución de bugs y la mejora de lógica backend. Actualmente me especializo en IA aplicada, explorando LLMs, workflows y el enfoque MCP.
+
+EDUCACIÓN
+
+UNIVERSIDAD INTERNACIONAL de la RIOJA
+Ciclo Formativo de Grado Superior – Desarrollo de Aplicaciones Web (DAW)
+Honores: Media > 9	Madrid, España
+Octubre 2023 - Mayo 2025
+
+UNIVERSIDAD INTERNACIONAL de la RIOJA
+Mención Enseñanza de la Lengua Inglesa del Grado en Maestro en Educación Primaria	Madrid, España
+Febrero 2023 - Julio 2023
+
+UNIVERSIDAD INTERNACIONAL de la RIOJA
+Máster Universitario Educación Inclusiva e Intercultural	Madrid, España
+Septiembre 2020 - Junio 2021
+
+UNIVERSIDAD AUTÓNOMA de MADRID
+Grado Educación primaria	Madrid, España
+Septiembre 2015 - Junio 2021
+
+EXPERIENCIA PROFESIONAL
+
+EURO KAIZEN SL
+Equipo Backend (.NET Core) - Proyecto MovilTruck	Remoto
+Marzo 2025 - Junio 2025
+•	Solucioné bugs en distintas áreas de la aplicación, desde el registro de usuarios hasta lógica del núcleo del sistema, garantizando un funcionamiento más estable.
+•	Validé y refactoricé endpoints existentes, mejorando la fiabilidad del sistema.
+•	Colaboré mediante Git y Azure DevOps en entorno de trabajo profesional.
+•	Stack: .NET Core · SQL Server · Postman · Azure DevOps
+
+INDIMETRA
+Desarrollador Backend - Proyecto Final de Grado	Remoto
+Marzo 2025 - Junio 2025
+•	Desarrollé la API completa de una plataforma para cortometrajes independientes, aplicando arquitectura modular con Spring Boot y seguridad mediante JWT.
+•	Implementé gestión por roles, sistema de favoritos y reseñas, filtros dinámicos y lógica de soft delete.
+•	Optimicé la estructura del backend para facilitar futuras integraciones con IA y asistentes inteligentes.
+•	Stack: Spring Boot · MySQL · Angular 18 · TailwindCSS · JWT
+
+MERCADONA
+Auxiliar de supermercado 	Segovia, España
+Julio 2023 - Diciembre 2023
+
+SERUNION S.A
+Monitor comedor infantil y primaria	Segovia, España
+Octubre 2022 - Junio 2023
+
+DOS EVENTOS
+Montador de estructuras y escenografía	Segovia, España
+Junio 2019 - Septiembre 2019
+
+MC DONALDS
+Asistente de sala y marketing en restauración	Madrid, España
+Octubre 2014 - Octubre 2017
+
+SKILLS TÉCNICAS
+
+•	Backend: Spring Boot, .NET Core, JWT, REST APIs
+•	Frontend: Angular 18, TailwindCSS, CSS, HTML
+•	Base de datos: MySQL, SQL Server
+•	Herramientas: Git, Azure DevOps, Postman, Swagger
+•	Otros: n8n, integración con IA (OpenAI)
+
+IDIOMAS
+
+•	Fluido en Inglés (B2 - Escuela Oficial de Idiomas) (C - APTIS).
+
+EXTRAS
+
+•	Portfolio: diegoarnanz-maker-portfolio.netlify.app
+•	GitHub: https://github.com/diegoarnanz-maker
+•	Intereses: Automatización, desarrollo de asistentes con IA y trabajo en modalidad remota, híbrida o presencial (Segovia - Madrid) 
